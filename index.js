@@ -24,6 +24,11 @@ mongoose
     .then(() => console.log('MongoDB database connection established successfully'))
     .catch(err => console.log(err));
 
+const sellerRouter = require('./routes/Seller.routes');
+
+app.use('/seller', sellerRouter);
+
+
 app.listen(port, err => {
     if (err) {
         console.error(err);
