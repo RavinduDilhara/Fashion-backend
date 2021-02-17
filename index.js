@@ -12,22 +12,27 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
-
-const uri = process.env.ATLAS_URI;
-
-mongoose
-    .connect(uri, {
+mongoose.connect('mongodb://localhost:27017/FashionDB',
+    {
         useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true
+        useFindAndModify: false
+    },(err)=>{
+        if (err){
+            process.exit(1);
+            console.log('unable to connect database.');
+        }
+        else{
+            console.log('successfully connect database.')
+        }
     })
-    .then(() => console.log('MongoDB database connection established successfully'))
-    .catch(err => console.log(err));
 
 const sellerRouter = require('./routes/Seller.routes');
+const adminLoginRouter = require('./routes/AdminLogin.routes');
+const categoryRouter = require('./routes/Category.routes');
 
 app.use('/seller', sellerRouter);
-
+app.use('/admin', adminLoginRouter);
+app.use('/category', categoryRouter);
 
 app.listen(port, err => {
     if (err) {
