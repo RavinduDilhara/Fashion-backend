@@ -8,6 +8,8 @@ router.route('/login').post((req, res, next) => {
 
     console.log("hiiiii");
 
+    console.log("flower");
+
     if(req.body.adminEmail === email && req.body.adminPassword === password){
         const token = jwt.sign({
             userId: 'Admin'
